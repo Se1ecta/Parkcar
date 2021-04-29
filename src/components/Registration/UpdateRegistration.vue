@@ -1,7 +1,7 @@
 <template>
   <div class="create-registration">
     <v-card>
-      <v-btn to="/registration" class="primary"></v-btn>
+      <v-btn to="/registration" class="primary">Back</v-btn>
       <v-card-title>
         <span class="headline">Create new registration</span>
       </v-card-title>
@@ -86,7 +86,7 @@ export default {
       return item.id_car;
     },
     getIdParkingSpot(item) {
-      return item.parkingspot;
+      return item.id_parkingspot;
     },
   },
   created() {

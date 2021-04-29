@@ -69,7 +69,8 @@ export default {
             state.registrationsError = err.response.data.msg
         },
         REGISTRATION_DELETED(state, msg, id) {
-            state.registrations = state.registrations.filter((registration) => registration.id_registration !== id)
+            let indexOfArrayItem = state.registrations.findIndex((i) => i.id_registration === id);
+            state.registrations.splice(indexOfArrayItem, 1)
             state.registrations_status = msg
 
         },

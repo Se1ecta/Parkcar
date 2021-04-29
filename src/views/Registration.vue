@@ -70,6 +70,7 @@
 </template>
 
 <script>
+// import axios from 'axios'
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {},
@@ -97,8 +98,8 @@ export default {
   methods: {
     ...mapActions([
       "loadRegistrations",
-      "deleteRegistration",
       "updateRegistration",
+      "deleteRegistration"
     ]),
     depature(registration) {
       registration.date_of_depature = new Date();

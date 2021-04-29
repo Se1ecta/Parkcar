@@ -59,7 +59,8 @@ export default {
         },
         CAR_DELETED(state, msg, id) {
             state.cars_status = msg
-            state.cars = state.cars.filter((car) => car.id_car !== id)
+            let indexOfArrayItem = state.cars.findIndex((i) => i.id_car=== id);
+            state.cars.splice(indexOfArrayItem, 1)
             state.cars_errors = null
         },
         ERROR_DELETE_CAR(state, err) {

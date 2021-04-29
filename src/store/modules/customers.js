@@ -44,7 +44,7 @@ export default {
             axios
                 .delete(`http://localhost:4000/api/customers/${id}`)
                 .then((res) => {
-                    commit('CUSTOMER_DELETED', res, id)
+                    commit('CUSTOMER_DELETED', res.data.msg, id)
                 })
                 .catch((error) => {
                     commit('ERROR_DELETE_CUSTOMER', error)
@@ -72,9 +72,10 @@ export default {
         CUSTOMER_UPDATED(state, msg) {
             state.customers_status = msg
         },
-        CUSTOMER_DELETED(state, res, id) {
-            state.customers = state.customers.filter((customer) => customer.id_customer !== id)
-            state.customers_status = res.data.msg
+        CUSTOMER_DELETED(state, msg, id) {
+            let indexOfArrayItem = state.customers.findIndex((i) => i.id_customer=== id);
+            state.customers.splice(indexOfArrayItem,1)
+            state.customers_status = msg
         },
         ERROR_DELETE_CUSTOMER(state, err) {
             state.customersErrors = err.response.data.msg

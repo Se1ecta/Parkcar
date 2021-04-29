@@ -17,8 +17,6 @@
                 label="Number"
                 required
                 color="blue"
-                @input="$v.car.numbercar.$touch()"
-                @blur="$v.car.numbercar.$touch()"
                 v-model="car.numbercar"
               ></v-text-field>
               <v-autocomplete
