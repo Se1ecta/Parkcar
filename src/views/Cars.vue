@@ -31,7 +31,8 @@
               <v-btn
                 class="red white--text mr-2"
                 small
-                @click="(snackbar = true), deleteCar(row.item.id_car)"
+                @click.prevent="(snackbar = true), deleteCar(row.item.id_car)"
+                to="/cars"
                 ><v-icon>mdi-delete</v-icon></v-btn
               >
               <v-btn

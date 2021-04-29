@@ -1,9 +1,9 @@
 <template>
-  <div class="update-car">
-    <v-btn to="/cars" class="primary">Back</v-btn>
+  <div class="create-car">
+    <v-btn to="/cars">back</v-btn>
     <v-card>
       <v-card-title>
-        <span class="headline">Update car</span>
+        <span class="headline">Add new car</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -12,9 +12,13 @@
               placeholder="Number car*"
               outlined
               dense
+              :error-messages="numberErrors"
+              :counter="6"
               label="Number"
               required
               color="blue"
+              @input="$v.car.numbercar.$touch()"
+              @blur="$v.car.numbercar.$touch()"
               v-model="car.numbercar"
             ></v-text-field>
             <v-autocomplete
@@ -33,6 +37,7 @@
               label="Customer"
               v-model="car.customer"
             ></v-autocomplete>
+            <v-btn @click="clear">clear </v-btn>
           </form>
         </v-container>
       </v-card-text>
@@ -42,12 +47,11 @@
           color="blue darken-1"
           text
           type="submit"
-          @click="(snackbar = true), updateCar(car), (dialog = false)"
-          >Update</v-btn
+          @click="(snackbar = true), updateCar()"
+          >Add</v-btn
         >
       </v-card-actions>
     </v-card>
-
     <v-snackbar v-model="snackbar">
       {{ cars_status }}
 
@@ -63,20 +67,31 @@
 <script>
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
-
-
+import { validationMixin } from "vuelidate";
+import { required, maxLength } from "vuelidate/lib/validators";
 export default {
-
-  data: () => ({
+  mixins: [validationMixin],
+  validations: {
     car: {
-      numbercar: "",
-      customer: "",
-      mark: "",
+      numbercar: { required, maxLength: maxLength(6) },
     },
-    snackbar: false,
-    dialog: false,
-    submitStatus: null,
-  }),
+  },
+  components: {
+    // Multiselect,
+  },
+  data() {
+    return {
+      snackbar: false,
+      selected: null,
+      value: [],
+      dialog: false,
+      car: {
+        numbercar: "",
+        customer: "",
+        mark: "",
+      },
+    };
+  },
   computed: {
     ...mapGetters(["customers", "marks", "cars_status"]),
     numberErrors() {
@@ -89,21 +104,38 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["updateCar", "loadCustomers", "loadMarks"]),
+    ...mapActions(["loadCustomers", "loadMarks"]),
     submit() {
       this.$v.$touch();
     },
-    getIdCustomer(item) {
-      return item.id_customer;
+    clear() {
+      this.car.numbercar = "";
+      this.car.mark = "";
+      this.car.customer = "";
     },
     infoCustomer(customer) {
       return ` ${customer.name}  ${customer.surname} (id: ${customer.id_customer})`;
     },
+    infoMark(mark) {
+      return ` ${mark.title}  ${mark.model} `;
+    },
+    getIdCustomer(item) {
+      return item.id_customer;
+    },
     getIdMark(item) {
       return item.id_mark;
     },
-    infoMark(mark) {
-      return ` ${mark.title}  ${mark.model} `;
+
+    updateCar() {
+      let URL = `http://localhost:4000/api/cars/${this.$route.params.id}`;
+      axios
+        .put(URL, this.car)
+        .then(() => {
+          this.$router.push("/cars");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   created() {
@@ -113,16 +145,15 @@ export default {
       this.car = res.data.car;
     });
   },
-  mounted(){
-    this.loadCustomers()
-    this.loadMarks()
-  }
+  mounted() {
+    this.loadCustomers();
+    this.loadMarks();
+  },
 };
 </script>
-
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
-.update-car{
+.create-car {
   width: 100%;
   height: 100%;
 }

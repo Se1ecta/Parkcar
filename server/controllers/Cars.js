@@ -50,7 +50,7 @@ car.findById = async (req, res) => {
     await db.query('SELECT * FROM car where id_car=$1', [req.params.id])
         .then((data) => {
             res.status(200).json({
-                car: data.rows
+                car: data.rows[0]
             })
         })
         .catch((err) => {

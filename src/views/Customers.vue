@@ -1,6 +1,6 @@
 <template>
   <div class="customers">
-    <v-btn to="/customers/create"> Create </v-btn>
+    <v-btn to="/customers/create" class="primary"> Create </v-btn>
     <v-card color="#2d3d4b">
       <v-card-title>
         <v-text-field
@@ -56,8 +56,8 @@
                 }"
                 class="success"
               >
-                <v-icon>mdi-pencil</v-icon></v-btn
-              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
             </td>
           </tr>
         </template>
