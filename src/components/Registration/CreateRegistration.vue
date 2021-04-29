@@ -12,7 +12,7 @@
                 :item-value="getIdCar"
                 :items="cars"
                 color="white"
-                :item-text="infoCar"
+                item-text="numbercar"
                 label="Car"
                 v-model="registration.car"
               ></v-autocomplete>
@@ -98,10 +98,7 @@ export default {
       return item.id_car;
     },
     getIdParkingSpot(item) {
-      return item.parkingspot;
-    },
-    infoCar(car) {
-      return `${car.numbercar}`;
+      return item.id_parkingspot;
     },
   },
   mounted() {

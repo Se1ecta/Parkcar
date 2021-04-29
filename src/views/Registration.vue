@@ -29,7 +29,9 @@
             <td>{{ row.item.date_of_depature | formatDate }}</td>
             <!-- <td>{{ row.item.date_register }}</td> -->
             <td class="text-xs-center d-flex align-center">
-              <v-btn small class="primary mr-2" @click="depature(row.item)">depature</v-btn>
+              <v-btn small class="primary mr-2" @click="depature(row.item)"
+                >depature</v-btn
+              >
               <v-btn
                 small
                 class="red white--text mr-2"

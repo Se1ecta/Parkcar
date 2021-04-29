@@ -42,9 +42,9 @@ INSERT INTO customer(name, surname,phone) values('Shannon','Harmon','(882) 718-2
 
 
 INSERT INTO mark (title, model) VALUES('Toyota', 'Corolla');
-INSERT INTO mark (title, model) VALUES('Toyota', 'Camry');
-INSERT INTO mark (title, model) VALUES('Toyota', 'RAV4');
-INSERT INTO mark (title, model) VALUES('Toyota', 'Supra');
+INSERT INTO mark (title, model) VALUES('Mercedes', 'Benz');
+INSERT INTO mark (title, model) VALUES('Lamborgini', 'Lementos');
+INSERT INTO mark (title, model) VALUES('Lada', 'Vesta');
 
 
 insert into car(numbercar,customer,mark) VALUES('A243BN', 1,1);
